@@ -12,7 +12,7 @@ mqttCallback( char *topic, byte *payload, unsigned int length )
     Serial.println();
   }
 
-  if (length < 3)
+  if (length < 2)
     return;
 
   char adr = payload[0];
@@ -20,6 +20,20 @@ mqttCallback( char *topic, byte *payload, unsigned int length )
     return;
 
   char sw = payload[1];
+  if (sw == 'P') { // ping
+    if (SerialDebug)
+      Serial.println( "got PING" );
+    char msg[] = { MessageAddress, 'p', 0 };
+    if (SerialDebug) {
+      Serial.print( "Publish message: " );
+      Serial.println( msg );
+    }
+    client.publish( TopicSend, msg );
+  }
+
+  if (length < 3)
+    return;
+
   char cmd = payload[2];
 
   for (int i=0; i < switch_nr; ++i) {
@@ -101,4 +115,3 @@ void loop() {
   client.loop();
   checkButtons();
 }
-

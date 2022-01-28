@@ -1,8 +1,8 @@
 static bool SerialDebug = true; // not const, auto-disable on use of RX/TX
 
 static const char MessageAddress = 'B';
-static const char TopicSend[] = "IoT-FromWemos";
-static const char TopicReceive[] = "IoT-ToWemos";
+static const char TopicSend[] = "IoT-FromNode";
+static const char TopicReceive[] = "IoT-ToNode";
 
 static const Button buttons[] = {
  //{ TX, '1' },

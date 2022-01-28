@@ -24,11 +24,7 @@ mqttCallback( char *topic, byte *payload, unsigned int length )
     if (SerialDebug)
       Serial.println( "got PING" );
     char msg[] = { MessageAddress, 'p', 0 };
-    if (SerialDebug) {
-      Serial.print( "Publish message: " );
-      Serial.println( msg );
-    }
-    client.publish( TopicSend, msg );
+    publish( msg );
   }
 
   if (length < 3)
@@ -45,14 +41,19 @@ mqttCallback( char *topic, byte *payload, unsigned int length )
       }
     }
   }
+
+  char msg[] = { MessageAddress, sw, (cmd - 'A' + 'a'), 0 };
+  publish( msg );
 }
 
-void mqttReconnect() {
+void
+mqttReconnect()
+{
   // Loop until we're reconnected
   while (!client.connected()) {
     if (SerialDebug)
       Serial.print( "Attempting MQTT connection..." );
-    // Create a random client ID
+    // Create a client ID
     String clientId = "IoT-Client-";
     const char a[] = { MessageAddress, 0 };
     clientId += a;
@@ -61,9 +62,11 @@ void mqttReconnect() {
       if (SerialDebug)
         Serial.println( "connected" );
       // Once connected, publish an announcement...
-      client.publish( TopicSend, "IoT-Start" );
+      char msg[] = { MessageAddress, (wasConnected ? 'R' : 'B') ,0 };
+      publish( msg );
       // ... and resubscribe
       client.subscribe( TopicReceive );
+      wasConnected = true;
     }
     else {
       if (SerialDebug) {
@@ -86,11 +89,7 @@ checkButton( int i )
     if (!lastButtonValue[pin]) {
       lastButtonValue[pin] = true;
       char msg[] = { MessageAddress, buttons[i].address, '0', 0 };
-      if (SerialDebug) {
-        Serial.print( "Publish message: " );
-        Serial.println( msg );
-      }
-      client.publish( TopicSend, msg );
+      publish( msg );
       // delay(50);
     }
   }
@@ -108,7 +107,9 @@ checkButtons()
   }
 }
 
-void loop() {
+void
+loop()
+{
   if (!client.connected()) {
     mqttReconnect();
   }

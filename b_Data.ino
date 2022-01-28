@@ -16,5 +16,5 @@ static const char psk2[] = WLAN_PSK2;
 
 static WiFiClient espClient;
 static PubSubClient client( espClient );
+static bool wasConnected;
 static bool lastButtonValue[button_nr];
-

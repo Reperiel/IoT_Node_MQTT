@@ -1,5 +1,15 @@
+void
+publish( const char *msg )
+{
+  if (SerialDebug) {
+    Serial.print( "Publish message: " );
+    Serial.println( msg );
+  }
+  client.publish( TopicSend, msg );
+}
 
-void setup() {
+void
+setup() {
   for (int i = 0; i < button_nr; i++) {
     pinMode( buttons[i].pin, INPUT_PULLUP );
     if (buttons[i].pin == RX || buttons[i].pin == TX)
@@ -17,7 +27,8 @@ void setup() {
   client.setCallback( mqttCallback );
 }
 
-void setup_wifi() {
+void
+setup_wifi() {
 
   delay(10);
   // We start by connecting to a WiFi network

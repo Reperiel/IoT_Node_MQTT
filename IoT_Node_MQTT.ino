@@ -2,6 +2,9 @@
 #include <WiFiManager.h>  // 2.0.3 alphaWiFiManager
 #include <PubSubClient.h> // 2.8.0
 
+#include <WiFiUdp.h>
+#include <ArduinoOTA.h>
+
 //----------------------------------------------------------
 
 
@@ -12,4 +15,3 @@
 #endif
 
 #include "io_def.h"
-

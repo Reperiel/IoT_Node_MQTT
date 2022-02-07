@@ -42,8 +42,10 @@ mqttCallback( char *topic, byte *payload, unsigned int length )
     }
   }
 
-  char msg[] = { MessageAddress, sw, (cmd - 'A' + 'a'), 0 };
-  publish( msg );
+  if (ConfirmAction) {
+    char msg[] = { MessageAddress, sw, char(tolower(cmd)), 0 };
+    publish( msg );
+  }
 }
 
 void

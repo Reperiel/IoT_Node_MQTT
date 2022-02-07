@@ -1,6 +1,8 @@
 static bool SerialDebug = true; // not const, auto-disable on use of RX/TX
 
-static const char MessageAddress = 'B';
+static const bool ConfirmAction = true;
+
+static const char MessageAddress = 'A';
 static const char TopicSend[] = "IoT-FromNode";
 static const char TopicReceive[] = "IoT-ToNode";
 

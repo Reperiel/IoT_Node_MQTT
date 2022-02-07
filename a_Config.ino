@@ -21,5 +21,6 @@ static const Switch switches[] = {
  { D6, '3' },
  { D7, '4' },
  { D4, '5' },
+ { LED_BUILTIN, '6', true },
 };
 static const int switch_nr = sizeof(switches)/sizeof(switches[0]);

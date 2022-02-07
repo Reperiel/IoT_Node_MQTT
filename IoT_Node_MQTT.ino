@@ -1,6 +1,11 @@
 //Board: LOLIN Wemos D1 pro
-#include <WiFiManager.h>  // 2.0.3 alphaWiFiManager
-#include <PubSubClient.h> // 2.8.0
+
+// required additional libraries:
+// WiFiManager; https://github.com/tzapu/WiFiManager.git
+// PubSubClient; https://github.com/knolleary/pubsubclient.git
+
+#include <WiFiManager.h>
+#include <PubSubClient.h>
 
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
